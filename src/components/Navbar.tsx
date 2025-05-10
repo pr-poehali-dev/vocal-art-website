@@ -57,6 +57,33 @@ const Navbar = () => {
           ))}
         </div>
 
+        <div className="hidden md:flex items-center space-x-4">
+          <a
+            href="https://vk.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`hover:text-vocal-purple transition-colors ${isScrolled ? "text-vocal-dark" : "text-white"}`}
+          >
+            <Icon name="MessageSquare" className="h-5 w-5" />
+          </a>
+          <a
+            href="https://t.me"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`hover:text-vocal-purple transition-colors ${isScrolled ? "text-vocal-dark" : "text-white"}`}
+          >
+            <Icon name="Send" className="h-5 w-5" />
+          </a>
+          <a
+            href="https://wa.me"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`hover:text-vocal-purple transition-colors ${isScrolled ? "text-vocal-dark" : "text-white"}`}
+          >
+            <Icon name="Phone" className="h-5 w-5" />
+          </a>
+        </div>
+
         <div className="hidden md:block">
           <Button className="bg-vocal-purple hover:bg-vocal-purple/90">
             Записаться на пробный урок

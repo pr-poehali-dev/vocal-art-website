@@ -77,7 +77,7 @@ const HeroSection = () => {
           <Button
             size="lg"
             variant="outline"
-            className="border-white text-white hover:bg-white/20 px-8 py-6 text-lg"
+            className="border-white text-white hover:bg-white/20 bg-white/10 px-8 py-6 text-lg"
           >
             Узнать больше
           </Button>
