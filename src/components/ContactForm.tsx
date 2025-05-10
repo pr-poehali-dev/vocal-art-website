@@ -1,11 +1,10 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { toast } from "@/components/ui/toast";
+import { useToast } from "@/hooks/use-toast"; // Исправлен импорт toast
 import Icon from "@/components/ui/icon";
 
 const ContactForm = () => {
@@ -14,24 +13,27 @@ const ContactForm = () => {
     phone: "",
     email: "",
     message: "",
-    lessonType: "individual"
+    lessonType: "individual",
   });
-  
+
   const [isSubmitting, setIsSubmitting] = useState(false);
-  
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const { toast } = useToast(); // Используем хук useToast
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
-  
+
   const handleRadioChange = (value: string) => {
-    setFormData(prev => ({ ...prev, lessonType: value }));
+    setFormData((prev) => ({ ...prev, lessonType: value }));
   };
-  
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
+
     // Симуляция отправки формы
     setTimeout(() => {
       setIsSubmitting(false);
@@ -44,11 +46,11 @@ const ContactForm = () => {
         phone: "",
         email: "",
         message: "",
-        lessonType: "individual"
+        lessonType: "individual",
       });
     }, 1500);
   };
-  
+
   return (
     <section id="contact" className="py-20">
       <div className="container mx-auto px-4">
@@ -56,51 +58,68 @@ const ContactForm = () => {
           <div className="grid grid-cols-1 md:grid-cols-2">
             <div className="p-8 md:p-12 bg-vocal-dark text-white">
               <h2 className="text-3xl font-playfair font-bold mb-6">
-                <span className="text-vocal-purple">Записаться</span> на пробный урок
+                <span className="text-vocal-purple">Записаться</span> на пробный
+                урок
               </h2>
               <p className="mb-8">
                 Оставьте свои контактные данные, и мы свяжемся с вами для записи
                 на бесплатный пробный урок вокала.
               </p>
-              
+
               <div className="space-y-6">
                 <div className="flex items-start gap-4">
                   <div className="bg-vocal-purple/20 p-2 rounded-full">
-                    <Icon name="CheckCircle" className="text-vocal-purple h-6 w-6" />
+                    <Icon
+                      name="CheckCircle"
+                      className="text-vocal-purple h-6 w-6"
+                    />
                   </div>
                   <div>
-                    <h3 className="font-medium text-lg mb-1">Бесплатный пробный урок</h3>
-                    <p className="text-gray-300">Познакомьтесь с педагогом и методикой преподавания</p>
+                    <h3 className="font-medium text-lg mb-1">
+                      Бесплатный пробный урок
+                    </h3>
+                    <p className="text-gray-300">
+                      Познакомьтесь с педагогом и методикой преподавания
+                    </p>
                   </div>
                 </div>
-                
+
                 <div className="flex items-start gap-4">
                   <div className="bg-vocal-purple/20 p-2 rounded-full">
                     <Icon name="Users" className="text-vocal-purple h-6 w-6" />
                   </div>
                   <div>
-                    <h3 className="font-medium text-lg mb-1">Индивидуальный подход</h3>
-                    <p className="text-gray-300">Программа обучения подбирается для каждого ученика</p>
+                    <h3 className="font-medium text-lg mb-1">
+                      Индивидуальный подход
+                    </h3>
+                    <p className="text-gray-300">
+                      Программа обучения подбирается для каждого ученика
+                    </p>
                   </div>
                 </div>
-                
+
                 <div className="flex items-start gap-4">
                   <div className="bg-vocal-purple/20 p-2 rounded-full">
-                    <Icon name="Calendar" className="text-vocal-purple h-6 w-6" />
+                    <Icon
+                      name="Calendar"
+                      className="text-vocal-purple h-6 w-6"
+                    />
                   </div>
                   <div>
                     <h3 className="font-medium text-lg mb-1">Гибкий график</h3>
-                    <p className="text-gray-300">Выбирайте удобное время для занятий</p>
+                    <p className="text-gray-300">
+                      Выбирайте удобное время для занятий
+                    </p>
                   </div>
                 </div>
               </div>
             </div>
-            
+
             <div className="p-8 md:p-12">
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="space-y-2">
                   <Label htmlFor="name">Ваше имя</Label>
-                  <Input 
+                  <Input
                     id="name"
                     name="name"
                     value={formData.name}
@@ -109,10 +128,10 @@ const ContactForm = () => {
                     required
                   />
                 </div>
-                
+
                 <div className="space-y-2">
                   <Label htmlFor="phone">Телефон</Label>
-                  <Input 
+                  <Input
                     id="phone"
                     name="phone"
                     value={formData.phone}
@@ -121,10 +140,10 @@ const ContactForm = () => {
                     required
                   />
                 </div>
-                
+
                 <div className="space-y-2">
                   <Label htmlFor="email">Email</Label>
-                  <Input 
+                  <Input
                     id="email"
                     name="email"
                     type="email"
@@ -134,11 +153,11 @@ const ContactForm = () => {
                     required
                   />
                 </div>
-                
+
                 <div className="space-y-2">
                   <Label>Тип занятий</Label>
-                  <RadioGroup 
-                    value={formData.lessonType} 
+                  <RadioGroup
+                    value={formData.lessonType}
                     onValueChange={handleRadioChange}
                     className="flex space-x-4"
                   >
@@ -152,10 +171,10 @@ const ContactForm = () => {
                     </div>
                   </RadioGroup>
                 </div>
-                
+
                 <div className="space-y-2">
                   <Label htmlFor="message">Сообщение (необязательно)</Label>
-                  <Textarea 
+                  <Textarea
                     id="message"
                     name="message"
                     value={formData.message}
@@ -164,15 +183,18 @@ const ContactForm = () => {
                     rows={3}
                   />
                 </div>
-                
-                <Button 
-                  type="submit" 
+
+                <Button
+                  type="submit"
                   className="w-full bg-vocal-purple hover:bg-vocal-purple/90"
                   disabled={isSubmitting}
                 >
                   {isSubmitting ? (
                     <>
-                      <Icon name="Loader2" className="mr-2 h-4 w-4 animate-spin" />
+                      <Icon
+                        name="Loader2"
+                        className="mr-2 h-4 w-4 animate-spin"
+                      />
                       Отправка...
                     </>
                   ) : (
